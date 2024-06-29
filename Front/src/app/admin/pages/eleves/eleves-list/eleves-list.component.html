@@ -1,0 +1,87 @@
+<h1 class="flex-auto text-lg font-semibold text-slate-900">Élèves</h1>
+
+<div class="my-5 text-end">
+    <button type='button'  class='py-2.5 px-6 text-sm rounded-lg bg-gray-700 text-white cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-gray-900'>
+        <a [routerLink]="['add']">
+            <i class='bx bx-plus'></i> Ajouter
+        </a>
+        
+    </button>
+
+</div>
+<h1 class="flex-auto text-xl font-semibold text-slate-900" *ngIf="listEleves.length==0">La base de données ne contient aucun enregistrement d'élèves.</h1>
+
+<!-- component -->
+<div class="container mx-auto mx-auto p-4">
+    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-4">
+      <div class="bg-white rounded-lg border p-4 transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 cursor-pointer duration-300" *ngFor="let item of listEleves">
+        <img src="{{urlAssets+item.image}}" alt="Placeholder Image" class="w-full h-48 rounded-md object-cover">
+        <div class="px-1 py-4">
+          <div class="font-bold text-xl mb-2">{{item.prenom}} {{item.nom}}</div>
+          <!-- <p class="text-gray-700 text-base">
+            This is a simple blog card example using Tailwind CSS. You can replace this text with your own blog content.
+          </p> -->
+          <ul class="my-4 space-y-3">
+            <li >
+              <span
+                class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                <span class="flex-1 ms-3 whitespace-nowrap">Sex</span>
+                <span class="inline-flex items-center justify-center px-2 py-0.5 ms-3 text-xs font-medium text-gray-500 bg-gray-200 rounded dark:bg-gray-700 dark:text-gray-400">
+                  {{item.sex}}
+                </span>
+              </span>
+            </li>
+            <li >
+              <span
+                class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                <span class="flex-1 ms-3 whitespace-nowrap">Age</span>
+                <span class="inline-flex items-center justify-center px-2 py-0.5 ms-3 text-xs font-medium text-gray-500 bg-gray-200 rounded dark:bg-gray-700 dark:text-gray-400">
+                  {{item.age}}
+                </span>
+              </span>
+            </li>
+            <li >
+              <span
+                class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                <span class="flex-1 ms-3 whitespace-nowrap">Niveau Etude</span>
+                <span class="inline-flex items-center justify-center px-2 py-0.5 ms-3 text-xs font-medium text-gray-500 bg-gray-200 rounded dark:bg-gray-700 dark:text-gray-400">
+                  {{item.elevesAnneScolaires[item.elevesAnneScolaires.length - 1].niveauEtude.nom}}
+                </span>
+              </span>
+            </li>
+            <li >
+              <span
+                class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                <span class="flex-1 ms-3 whitespace-nowrap">Année Scolaire</span>
+                <span class="inline-flex items-center justify-center px-2 py-0.5 ms-3 text-xs font-medium text-gray-500 bg-gray-200 rounded dark:bg-gray-700 dark:text-gray-400">
+                  {{item.elevesAnneScolaires[item.elevesAnneScolaires.length - 1].anneeScolaire.anneeStart}} -
+                  {{item.elevesAnneScolaires[item.elevesAnneScolaires.length - 1].anneeScolaire.anneeEnd}}
+                </span>
+              </span>
+            </li>
+            <li *ngFor="let parent of item.parentsElevesLinks">
+              <span
+                class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                <span class="flex-1 ms-3 whitespace-nowrap">Parent</span>
+                <span class="inline-flex items-center justify-center px-2 py-0.5 ms-3 text-xs font-medium text-gray-500 bg-gray-200 rounded dark:bg-gray-700 dark:text-gray-400">
+                  {{parent.parents.prenom}}  {{parent.parents.nom}}
+                </span>
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div class="px-1 py-4">
+            <!-- <button
+			class="px-3 py-1  bg-black text-white rounded-lg text-[15px] cursor-pointer active:scale-[.97]">
+			Détail</button> -->
+      <a [routerLink]="['detail',item.id]">
+        <button  class="rounded-lg py-2.5 px-6 text-center w-full text-white bg-black font-semibold text-lg transition-all duration-500 hover:bg-black">
+                Detail
+        </button>
+      </a>
+
+
+        </div>
+      </div>
+    </div>
+  </div>

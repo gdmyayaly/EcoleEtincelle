@@ -1,0 +1,89 @@
+<h1 class="flex-auto text-lg font-semibold text-slate-900">Parents-Ajout</h1>
+
+<div class="center_form">
+    <div class="box">
+        <!-- <h3 class="text-center font-bold"></h3> -->
+        <div class="shrink-0 mt-4">
+            <img class="h-16 w-16 object-cover rounded-full" src="{{imgUpload}}" alt="Current profile photo" />
+        </div>
+        <label class="block">
+            <span class="sr-only">Choose profile photo</span>
+            <input type="file" 
+            accept="image/*" (change)="handleOneFileInput($event)" 
+            class="block w-full text-sm text-slate-500
+              file:mr-4 file:py-2 file:px-4
+              file:rounded-full file:border-0
+              file:text-sm file:font-semibold
+              file:bg-violet-50 file:text-violet-700
+              hover:file:bg-violet-100 mt-4
+            "/>
+        </label>
+        <form [formGroup]="formParent">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <label class="block mt-3">
+                    <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                      Prénom
+                    </span>
+                    <input formControlName="prenom" type="text" name="Prénom" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Prénom" />
+                </label>
+            </div>
+            <div class="col-12 col-md-6">
+                <label class="block mt-3">
+                    <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                      Nom
+                    </span>
+                    <input formControlName="nom" type="text" name="Nom" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Nom" />
+                </label>
+            </div>
+            <div class="col-12 col-md-6">
+                <label class="block mt-3">
+                    <span class="block text-sm font-medium text-slate-700">
+                      Telephone
+                    </span>
+                    <input formControlName="telephone" type="text" name="Telephone" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Telephone" />
+                </label>
+            </div>
+            <div class="col-12 col-md-6">
+                <label class="block mt-3">
+                    <span class="block text-sm font-medium text-slate-700">
+                      Email
+                    </span>
+                    <input formControlName="email" type="text" name="Email" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Email" />
+                </label>
+            </div>
+            <div class="col-12 col-md-6">
+                <label class="block mt-3">
+                    <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                      Adresse
+                    </span>
+                    <input formControlName="adresse" type="text" name="Adresse" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Adresse" />
+                </label>
+            </div>
+            <div class="col-12 col-md-6">
+                <label class="block mt-3">
+                    <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                      Profession
+                    </span>
+                    <input formControlName="profession" type="text" name="Profession" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Profession" />
+                </label>
+            </div>
+            <div class="col-12 col-md-6">
+                <label for="sex" class=" after:content-['*'] after:ml-0.5 after:text-red-500 mt-4 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">SEX</label>
+                <select formControlName="sex" id="sex" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value="Masculin">Masculin</option>
+                <option value="Feminin">Feminin</option>
+                </select>
+            </div>
+            <div class="col-12 col-md-6">
+                <label for="message" class="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Commentaire</label>
+                <textarea formControlName="commentaire" id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your message..."></textarea>
+            </div>
+        </div>
+        <button [disabled]="!formParent.valid" (click)="submitParent()" class="rounded-lg py-2.5 px-6 text-center w-50 text-white bg-black font-semibold text-lg transition-all duration-500 hover:bg-black">
+            Enregistrer
+        </button>
+        </form>
+       
+    </div>    
+</div>

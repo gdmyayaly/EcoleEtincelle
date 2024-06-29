@@ -1,0 +1,125 @@
+<h1 class="flex-auto text-lg font-semibold text-slate-900">Ajout Élève</h1>
+<div class="my-5">
+    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 gap-2">
+        <!-- <div class="partent_section p-3">
+            <div class="box">
+                <h3>Parents</h3>
+                <div class="relative max-w-xs border border-solid border-gray-200 rounded-2xl p-4 transition-all duration-500 col-span-12  xl:p-7   lg:col-span-3 md:col-span-6 ">
+                    <h4 class="text-base font-semibold text-gray-900 mb-2 capitalize transition-all duration-500 ">Fast Transaction</h4>
+                    <p class="text-sm font-normal text-gray-500 transition-all duration-500 leading-5 mb-4"> Provides faster transaction, so money arrives in realtime </p>
+                </div>
+            </div>            
+        </div> -->
+        <div class="partent_section p-3">
+            <div class="box">
+                <h3 class="text-center font-bold">Élève</h3>
+                <div class="shrink-0 mt-4">
+                    <img class="h-16 w-16 object-cover rounded-full" src="{{imgUpload}}" alt="Current profile photo" />
+                </div>
+                <label class="block">
+                    <span class="sr-only">Choose profile photo</span>
+                    <input type="file" 
+                    accept="image/*" (change)="handleOneFileInput($event)"
+                    class="block w-full text-sm text-slate-500
+                      file:mr-4 file:py-2 file:px-4
+                      file:rounded-full file:border-0
+                      file:text-sm file:font-semibold
+                      file:bg-violet-50 file:text-violet-700
+                      hover:file:bg-violet-100 mt-4
+                    "/>
+                </label>
+                <form [formGroup]="formAddEleves">
+                    <div class="row">
+                        <!-- Prénom -->
+                        <div class="col-12 col-md-6">
+                            <label class="block mt-3">
+                                <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                                Prénom
+                                </span>
+                                <input formControlName="prenom" type="text" name="Prénom" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Prénom" />
+                            </label>
+                        </div>
+                        <!-- Nom -->
+                        <div class="col-12 col-md-6">
+                            <label class="block mt-3">
+                                <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                                Nom
+                                </span>
+                                <input formControlName="nom" type="text" name="Nom" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Nom" />
+                            </label>
+                        </div>
+                        <!-- Age -->
+                        <div class="col-12 col-md-6">
+                            <label class="block mt-3">
+                                <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                                Age
+                                </span>
+                                <input formControlName="age" type="text" name="Age" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Age" />
+                            </label>
+                        </div>
+                        <!-- Date de Naissance -->
+                        <div class="col-12 col-md-6">
+                            <label class="block mt-3">
+                                <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-sm font-medium text-slate-700">
+                                Date de naissance
+                                </span>
+                                <input formControlName="date" type="date" name="dateDenaissance" class="mt-1 px-3 py-2 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:text-sm focus:ring-1" placeholder="Age" />
+                            </label>
+                        </div>
+                        <!-- SEX -->
+                        <div class="col-12 col-md-6">
+                            <div>
+                                <label for="sex" class="mt-4 after:content-['*'] after:ml-0.5 after:text-red-500 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">SEX</label>
+                                <select formControlName="sex" id="sex" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option value="Masculin">Masculin</option>
+                                <option value="Feminin">Feminin</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Niveau Etude -->
+                        <div class="col-12 col-md-6">
+                            <div>
+                                <h1 *ngIf="listNiveuaEtude.length==0">Pas de niveau d'étude dans la base de donnée</h1>
+                                <label for="niveauEtude" class="mt-4 after:content-['*'] after:ml-0.5 after:text-red-500 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Niveau d'étude</label>
+                                <select formControlName="niveauEtude" id="niveauEtude" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option *ngFor="let item of listNiveuaEtude"  value="{{item.id}}">{{item.nom}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Année Scolaire -->
+                        <div class="col-12 col-md-6">
+                            <div>
+                                <h1 *ngIf="listAnneeScolaire.length==0">Pas d'année scolaire dans la base de donnée</h1>
+                                <label for="anneeScolaire" class="mt-4 after:content-['*'] after:ml-0.5 after:text-red-500 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Année Scolaire</label>
+                                <select id="anneeScolaire" formControlName="anneeScolaire" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option *ngFor="let item of listAnneeScolaire"  value="{{item.id}}">{{item.anneeStart}} {{item.anneeEnd}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Parents Eleves -->
+                        <div class="col-12 col-md-6">
+                            <div>
+                                <h1 *ngIf="listParentEleves.length==0">Pas de parents présnet dans la base de donnée</h1>
+                                <label for="parents" class="after:content-['*'] after:ml-0.5 after:text-red-500 mt-4 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Parents</label>
+                                <select formControlName="parents" id="parents" multiple  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option *ngFor="let item of listParentEleves"  value="{{item.id}}">{{item.prenom}}{{item.nom}} ({{item.telephone}})</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Parents Eleves -->
+                        <div class="col-12 col-md-6">
+                            <label for="message" class="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Commentaire</label>
+                            <textarea formControlName="commentaire"  id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your message..."></textarea>
+                        </div>
+                    </div>
+                    <button [disabled]="!formAddEleves.valid" (click)="saveEleves()" class="rounded-lg py-2.5 px-6 text-center w-50 text-white bg-black font-semibold text-lg transition-all duration-500 hover:bg-black">
+                        Enregistrer
+                    </button>
+                </form>
+                
+                
+                
+            </div>            
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-12 col-md-4">
+        <div class="box">
+            <form >
+                <div>
+                    <h1 *ngIf="listAnneeScolaire.length==0">Pas d'année scoalaire présent dans la base de donnée</h1>
+                    <label for="anneeScolaire" class="after:content-['*'] after:ml-0.5 after:text-red-500 mt-4 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Année Scolaire</label>
+                    <select formControlName="anneeScolaire" id="anneeScolaire"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option *ngFor="let item of listAnneeScolaire"  value="{{item.id}}">{{item.anneeStart}}-{{item.anneeEnd}}</option>
+                    </select>
+                </div>
+                <div *ngFor="let input of listCritere; let i = index">
+                    <div >
+                        <label for="message{{i}}" class="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Question</label>
+                        <textarea formControlName="question{{i}}" value="{{input.question}}"  id="message{{i}}" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your message..."></textarea>
+                    </div>
+                    <div >
+                        <label for="sex" class="mt-4 after:content-['*'] after:ml-0.5 after:text-red-500 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
+                            Réponse 
+                        </label>
+                        <select id="sex" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option  value="faitSeul">Fait Seul</option>
+                        <option  value="neFaitPas">Ne Fait Pas</option>
+                        <option  value="faitAvecDeLAide">Fait Avec De LAide</option>
+                        <option  value="nonEvaluer">Non Evaluer</option>
+                        </select>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+    <div class="col-12 col-md-8">
+        <!-- <div [froalaEditor]>Hello, Froala!</div>    -->
+       
+        <button (click)="saveData()">Save</button>
+    </div>
+</div>

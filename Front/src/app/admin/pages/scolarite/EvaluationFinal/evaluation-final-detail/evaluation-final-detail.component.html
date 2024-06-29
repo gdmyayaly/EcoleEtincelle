@@ -1,0 +1,112 @@
+<!-- <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-x-2 gap-y-28 lg:gap-y-16"> -->
+<div class="row">
+  <div class="col-12 col-md-4">
+    <div class="box">
+      <form [formGroup]="formAddCritere">
+        <div class="col-12 col-md-6">
+          <label for="moistart" class=" after:content-['*'] after:ml-0.5 after:text-red-500 mt-4 block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Mois d'ouverture</label>
+          <select formControlName="id" id="moistart" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option *ngFor="let item of detailCritereEvaluation.critereEvaluationGroups" value="{{item.id}}">{{item.nom}}</option>
+          </select>
+        </div>
+        <div class="">
+          <label for="question" class="after:content-['*'] after:ml-0.5 after:text-red-500 block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Question</label>
+          <textarea formControlName="question" id="question" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Note sur cette critère..."></textarea>
+        </div>
+        <div class="">
+          <label for="faitSeul" class="after:content-['*'] after:ml-0.5 after:text-red-500 block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Fait seul</label>
+          <textarea formControlName="faitSeul" id="faitSeul" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Note sur cette critère..."></textarea>
+        </div>
+        <div class="">
+          <label for="neFaitPas" class="after:content-['*'] after:ml-0.5 after:text-red-500 block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Ne fait pas</label>
+          <textarea formControlName="neFaitPas" id="neFaitPas" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Note sur cette critère..."></textarea>
+        </div>
+        <div class="">
+          <label for="faitAvecDeLAide" class="after:content-['*'] after:ml-0.5 after:text-red-500 block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Fait avec de L'aide</label>
+          <textarea formControlName="faitAvecDeLAide" id="faitAvecDeLAide" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Note sur cette critère..."></textarea>
+        </div>
+        <div class="">
+          <label for="nonEvaluer" class="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Non Evaluer</label>
+          <textarea formControlName="nonEvaluer" id="nonEvaluer" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Note sur cette critère..."></textarea>
+        </div>
+        <button
+            type="button"
+            [disabled]="!formAddCritere.valid"
+            class="w-full mt-2 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+            (click)="saveData()"
+          >
+            Valider
+          </button>
+      </form>
+    </div>
+  </div>
+  <div class="col-12 col-md-8">
+    <div class="row" *ngIf="detailCritereEvaluation">
+      <div class="col-12 col-md-12 col-lg-6" *ngFor="let item of detailCritereEvaluation.critereEvaluationGroups">
+          <div class="mt-4 w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+              <div class="flex items-center justify-between mb-4">
+                  <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">{{item.nom}}</h5>
+                  <!-- <a href="#" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+                      Explorer
+                  </a> -->
+             </div>
+             <div class="flow-root">
+              <div>
+                  <details *ngFor="let critere of item.criteresEvaluations">
+                      <summary>{{critere.question}}</summary>
+                      <div class="content">
+                        <ul class="my-4 space-y-3">
+                          <li >
+                            <span
+                              class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                              <span class="flex-1 ms-3 whitespace-nowrap">Fait seul</span>
+                            </span>
+                          </li>
+                        </ul>
+                        <p>{{critere.faitSeul}}</p>
+                        
+                        <ul class="my-4 space-y-3">
+                          <li >
+                            <span
+                              class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                              <span class="flex-1 ms-3 whitespace-nowrap">Ne fait pas</span>
+                            </span>
+                          </li>
+                        </ul>
+                        <p>{{critere.neFaitPas}}</p>
+                        
+                        <ul class="my-4 space-y-3">
+                          <li >
+                            <span
+                              class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                              <span class="flex-1 ms-3 whitespace-nowrap">Fait avec de l(aide</span>
+                            </span>
+                          </li>
+                        </ul>
+                        <p>{{critere.faitAvecDeLAide}}</p>
+                        
+                        <ul class="my-4 space-y-3">
+                          <li >
+                            <span
+                              class="flex items-center p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                              <span class="flex-1 ms-3 whitespace-nowrap">Non evaluer</span>
+                            </span>
+                          </li>
+                        </ul>
+                        <p>{{critere.nonEvaluer}}</p>
+                        
+                      </div>
+                  </details>
+              </div>
+             </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 col-md-6"></div>
+  <div class="col-12 col-md-6">
+  
+  </div>
+</div>

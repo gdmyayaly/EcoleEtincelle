@@ -1,0 +1,15 @@
+.home_content{
+    position:absolute;
+    min-height:100%;
+    width:calc(100% - 78px);
+    left:78px;
+    /* background:var(--sky-color); */
+    padding:20px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    transition:all 0.5s ease;
+  }
+  .home_content.active{
+    z-index:100;
+    width:calc(100% - 240px);
+    left:240px;
+  }
