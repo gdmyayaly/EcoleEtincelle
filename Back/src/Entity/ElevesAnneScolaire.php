@@ -14,14 +14,15 @@ class ElevesAnneScolaire
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['eleves'])]
+    #[Groups(['eleves','list'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'elevesAnneScolaires')]
+    #[Groups(['list'])]
     private ?Eleves $eleves = null;
 
     #[ORM\ManyToOne(inversedBy: 'elevesAnneScolaires')]
-    #[Groups(['eleves'])]
+    #[Groups(['eleves','list'])]
     private ?NiveauEtude $niveauEtude = null;
 
     #[ORM\ManyToOne(inversedBy: 'elevesAnneScolaires')]

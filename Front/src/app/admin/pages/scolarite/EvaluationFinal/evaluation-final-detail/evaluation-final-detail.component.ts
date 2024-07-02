@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { CritereEvaluationFamilyService } from '../service/niveau-etude.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CritereEvaluationFamily } from '../model/critereEvaluationFamily';
+import { CriteresEvaluationsModel } from '../model/criteresEvaluations';
 
 @Component({
   selector: 'app-evaluation-final-detail',
@@ -19,6 +20,9 @@ export class EvaluationFinalDetailComponent implements OnInit, OnDestroy{
     nonEvaluer: new FormControl(''),
     id: new FormControl('')
   });
+  dataFormSelected!:CriteresEvaluationsModel;
+  public idQuestionSelected:number=0;
+  public showBtnUpdateForm:boolean=false;
   constructor(private critereService:CritereEvaluationFamilyService){}
   ngOnInit(): void {
     this.loadDetail(this.id);
@@ -46,5 +50,57 @@ export class EvaluationFinalDetailComponent implements OnInit, OnDestroy{
       error=>{console.log(error);
       }
     )
+  }
+  onChangeSelectedCritere(id:number,idSelec:number){
+    // console.log(ev.target.value);
+    this.critereService.detailOneGroupCritereEvaluation(id).subscribe(
+      res=>{console.log(res);
+        this.dataFormSelected=res;
+        if (this.dataFormSelected!=null) {
+          this.idQuestionSelected=this.dataFormSelected.id;
+          this.formAddCritere.get('id')?.setValue(idSelec.toString())
+          this.formAddCritere.get('question')?.setValue(this.dataFormSelected.question)
+          this.formAddCritere.get('faitSeul')?.setValue(this.dataFormSelected.faitSeul)
+          this.formAddCritere.get('neFaitPas')?.setValue(this.dataFormSelected.neFaitPas)
+          this.formAddCritere.get('faitAvecDeLAide')?.setValue(this.dataFormSelected.faitAvecDeLAide)
+          this.formAddCritere.get('nonEvaluer')?.setValue(this.dataFormSelected.nonEvaluer)
+          this.showBtnUpdateForm=true;
+        } else {
+          this.showBtnUpdateForm=false;
+          this.formAddCritere.get('question')?.setValue("")
+          this.formAddCritere.get('faitSeul')?.setValue("")
+          this.formAddCritere.get('neFaitPas')?.setValue("")
+          this.formAddCritere.get('faitAvecDeLAide')?.setValue("")
+          this.formAddCritere.get('nonEvaluer')?.setValue("")
+        }
+        
+      },
+      error=>{console.log(error);
+      }
+    )
+
+  }
+  updateFrom(){
+    console.log("Update Formulaire");
+    console.log(this.formAddCritere.value);
+    console.log(this.dataFormSelected.id);
+    this.critereService.updateOneCritereEvaluation(this.formAddCritere.value,this.dataFormSelected.id).subscribe(
+      res=>{console.log(res);
+        this.loadDetail(this.id);
+        // this.showBtnUpdateForm=false;
+        // this.formAddCritere.reset();
+      },
+      error=>{console.log(error);
+      }
+    )
+  }
+  cancelModifData(){
+    // this.loadDetail(this.id);
+    this.showBtnUpdateForm=false;
+    this.formAddCritere.get('question')?.setValue("")
+    this.formAddCritere.get('faitSeul')?.setValue("")
+    this.formAddCritere.get('neFaitPas')?.setValue("")
+    this.formAddCritere.get('faitAvecDeLAide')?.setValue("")
+    this.formAddCritere.get('nonEvaluer')?.setValue("")
   }
 }

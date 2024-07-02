@@ -28,11 +28,23 @@ export class CritereEvaluationFamilyService {
   saveCritereEvaluationGroupe(data:any):Observable<CritereEvaluationFamily>{
     return this.http.post<CritereEvaluationFamily>(environment.urlApi+"api/scolarite/critere-evaluation-group",data)
   }
-
+  updateOneCritereEvaluationGroupe(data:any):Observable<CritereEvaluationFamily>{
+    return this.http.post<CritereEvaluationFamily>(environment.urlApi+"api/scolarite/critere-evaluation-group-update/"+data.id,data)
+  }
+  removeOneGroupCritereEvaluation(id:number):Observable<any>{
+    return this.http.get<any>(environment.urlApi+"api/scolarite/critere-evaluation-group-remove/"+id)
+  }
+  detailOneGroupCritereEvaluation(id:number):Observable<CriteresEvaluationsModel>{
+    return this.http.get<CriteresEvaluationsModel>(environment.urlApi+"api/scolarite/critere-evaluation-detail-group/"+id)
+  }
   listCritereEvaluation():Observable<CriteresEvaluationsModel[]>{
     return this.http.get<CriteresEvaluationsModel[]>(environment.urlApi+"api/scolarite/critere-evaluation")
   }
   saveCritereEvaluation(data:any):Observable<any>{
     return this.http.post<any>(environment.urlApi+"api/scolarite/critere-evaluation",data)
   }
+  updateOneCritereEvaluation(data:any,id:number):Observable<any>{
+    return this.http.post<any>(environment.urlApi+"api/scolarite/critere-evaluation-update/"+id,data)
+  }
+
 }

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\NotesEvaluationAnnuelElevesRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: NotesEvaluationAnnuelElevesRepository::class)]
 class NotesEvaluationAnnuelEleves
@@ -12,15 +13,19 @@ class NotesEvaluationAnnuelEleves
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['eleves'])]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['eleves'])]
     private ?string $question = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['eleves'])]
     private ?string $tagReponse = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups(['eleves'])]
     private ?string $reponse = null;
 
     #[ORM\ManyToOne(inversedBy: 'notesEvaluationAnnuelEleves')]

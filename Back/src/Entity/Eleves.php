@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ElevesRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -14,27 +15,27 @@ class Eleves
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['eleves'])]
+    #[Groups(['eleves','list'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['eleves'])]
+    #[Groups(['eleves','list'])]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['eleves'])]
+    #[Groups(['eleves','list'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['eleves'])]
+    #[Groups(['eleves','list'])]
     private ?string $age = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['eleves'])]
+    #[Groups(['eleves','list'])]
     private ?string $sex = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['eleves'])]
+    #[Groups(['eleves','list'])]
     private ?string $dateDeNaissance = null;
 
     /**
@@ -68,11 +69,22 @@ class Eleves
     #[ORM\OneToMany(targetEntity: EvaluationAnnuelEleves::class, mappedBy: 'eleve')]
     private Collection $evaluationAnnuelEleves;
 
+    /**
+     * @var Collection<int, PaiementScolariteEleves>
+     */
+    #[ORM\OneToMany(targetEntity: PaiementScolariteEleves::class, mappedBy: 'eleves')]
+    private Collection $paiementScolariteEleves;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
     public function __construct()
     {
         $this->parentsElevesLinks = new ArrayCollection();
         $this->elevesAnneScolaires = new ArrayCollection();
         $this->evaluationAnnuelEleves = new ArrayCollection();
+        $this->paiementScolariteEleves = new ArrayCollection();
+        $this->createdAt= new DateTimeImmutable('now');
     }
 
     public function getId(): ?int
@@ -262,6 +274,48 @@ class Eleves
                 $evaluationAnnuelElefe->setEleve(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PaiementScolariteEleves>
+     */
+    public function getPaiementScolariteEleves(): Collection
+    {
+        return $this->paiementScolariteEleves;
+    }
+
+    public function addPaiementScolariteElefe(PaiementScolariteEleves $paiementScolariteElefe): static
+    {
+        if (!$this->paiementScolariteEleves->contains($paiementScolariteElefe)) {
+            $this->paiementScolariteEleves->add($paiementScolariteElefe);
+            $paiementScolariteElefe->setEleves($this);
+        }
+
+        return $this;
+    }
+
+    public function removePaiementScolariteElefe(PaiementScolariteEleves $paiementScolariteElefe): static
+    {
+        if ($this->paiementScolariteEleves->removeElement($paiementScolariteElefe)) {
+            // set the owning side to null (unless already changed)
+            if ($paiementScolariteElefe->getEleves() === $this) {
+                $paiementScolariteElefe->setEleves(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

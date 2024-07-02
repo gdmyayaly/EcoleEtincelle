@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EvaluationAnnuelElevesRepository::class)]
 class EvaluationAnnuelEleves
@@ -14,21 +15,25 @@ class EvaluationAnnuelEleves
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['eleves'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'evaluationAnnuelEleves')]
     private ?Eleves $eleve = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['eleves'])]
     private ?string $htmlReport = null;
 
     #[ORM\ManyToOne(inversedBy: 'evaluationAnnuelEleves')]
+    #[Groups(['eleves'])]
     private ?AnneeScolaire $anneeScolaire = null;
 
     /**
      * @var Collection<int, NotesEvaluationAnnuelEleves>
      */
     #[ORM\OneToMany(targetEntity: NotesEvaluationAnnuelEleves::class, mappedBy: 'evaluationAnnuelEleves')]
+    #[Groups(['eleves'])]
     private Collection $notesEvaluationAnnuelEleves;
 
     public function __construct()

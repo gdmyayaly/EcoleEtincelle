@@ -44,6 +44,7 @@ class AnneeScolaire
      * @var Collection<int, ElevesAnneScolaire>
      */
     #[ORM\OneToMany(targetEntity: ElevesAnneScolaire::class, mappedBy: 'anneeScolaire')]
+    #[Groups(['list'])]
     private Collection $elevesAnneScolaires;
 
     /**
@@ -52,11 +53,18 @@ class AnneeScolaire
     #[ORM\OneToMany(targetEntity: EvaluationAnnuelEleves::class, mappedBy: 'anneeScolaire')]
     private Collection $evaluationAnnuelEleves;
 
+    /**
+     * @var Collection<int, PaiementNiveauEtudeAnneeScolaire>
+     */
+    #[ORM\OneToMany(targetEntity: PaiementNiveauEtudeAnneeScolaire::class, mappedBy: 'anneeScolaire')]
+    private Collection $paiementNiveauEtudeAnneeScolaires;
+
     public function __construct()
     {
         $this->anneeScolaireMensualites = new ArrayCollection();
         $this->elevesAnneScolaires = new ArrayCollection();
         $this->evaluationAnnuelEleves = new ArrayCollection();
+        $this->paiementNiveauEtudeAnneeScolaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -196,6 +204,36 @@ class AnneeScolaire
             // set the owning side to null (unless already changed)
             if ($evaluationAnnuelElefe->getAnneeScolaire() === $this) {
                 $evaluationAnnuelElefe->setAnneeScolaire(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PaiementNiveauEtudeAnneeScolaire>
+     */
+    public function getPaiementNiveauEtudeAnneeScolaires(): Collection
+    {
+        return $this->paiementNiveauEtudeAnneeScolaires;
+    }
+
+    public function addPaiementNiveauEtudeAnneeScolaire(PaiementNiveauEtudeAnneeScolaire $paiementNiveauEtudeAnneeScolaire): static
+    {
+        if (!$this->paiementNiveauEtudeAnneeScolaires->contains($paiementNiveauEtudeAnneeScolaire)) {
+            $this->paiementNiveauEtudeAnneeScolaires->add($paiementNiveauEtudeAnneeScolaire);
+            $paiementNiveauEtudeAnneeScolaire->setAnneeScolaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removePaiementNiveauEtudeAnneeScolaire(PaiementNiveauEtudeAnneeScolaire $paiementNiveauEtudeAnneeScolaire): static
+    {
+        if ($this->paiementNiveauEtudeAnneeScolaires->removeElement($paiementNiveauEtudeAnneeScolaire)) {
+            // set the owning side to null (unless already changed)
+            if ($paiementNiveauEtudeAnneeScolaire->getAnneeScolaire() === $this) {
+                $paiementNiveauEtudeAnneeScolaire->setAnneeScolaire(null);
             }
         }
 

@@ -16,7 +16,7 @@ export class AuthComponent implements OnInit, OnDestroy{
 
   constructor(private authService:AuthService){}
   ngOnInit(): void {
-    
+    localStorage.clear();
   }
   ngOnDestroy(): void {
     

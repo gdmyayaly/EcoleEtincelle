@@ -33,8 +33,10 @@ class ParentElevesController extends AbstractController
     {
         $data = json_decode($request->getContent(),true);
         $img="";
-        $defaultMen="";
-        $defaultWomen="";
+        // $defaultMen="";
+        // $defaultWomen="";
+        $defaultMen="default/father.jpg";
+        $defaultWomen="default/mom.jpg";
         if(!$data){
             $data=$request->request->all();
         }
@@ -51,15 +53,15 @@ class ParentElevesController extends AbstractController
             }
         }
         $parentEleves = new ParentEleves();
-        $parentEleves->setPrenom($data["prenom"])
-                     ->setNom($data["nom"])
-                     ->setTelephone($data["telephone"])
-                     ->setEmail($data["email"])
-                     ->setAdresse($data["adresse"])
-                     ->setProfession($data["profession"])
+        $parentEleves->setPrenom(trim($data["prenom"]))
+                     ->setNom(trim($data["nom"]))
+                     ->setTelephone(trim($data["telephone"]))
+                     ->setEmail(trim($data["email"]))
+                     ->setAdresse(trim($data["adresse"]))
+                     ->setProfession(trim($data["profession"]))
                      ->setImage($img)
-                     ->setSex($data["sex"])
-                     ->setCommentaire($data["commentaire"])
+                     ->setSex(trim($data["sex"]))
+                     ->setCommentaire(trim($data["commentaire"]))
                      ->setDeleted(false);
         $entityManagerInterface->persist($parentEleves);
         $entityManagerInterface->flush();
@@ -70,7 +72,63 @@ class ParentElevesController extends AbstractController
             'Content-Type' => 'application/json'
         ]);
     }
+    #[Route('/parent_eleves_detail/{id}', name: 'app_parent_eleves_detail',methods:['GET'])]
+    public function detailOnParentEleves(int $id,ParentElevesRepository $parentElevesRepository,SerializerInterface $serializer): Response
+    {
+        $parents= $parentElevesRepository->findOneBy(['isDeleted'=>false,'id'=>$id]);
+        $data = $serializer->serialize($parents, 'json', [
+            'groups' => ['list']
+        ]);
+        return new Response($data, Response::HTTP_OK, [
+            'Content-Type' => 'application/json'
+        ]);
+    }
+    #[Route('/parent_eleves_update/{id}', name: 'app_parent_eleves_update',methods:['POST'])]
+    public function updateOneParentEleves(int $id,ParentElevesRepository $parentElevesRepository,Request $request,SerializerInterface $serializer,EntityManagerInterface $entityManagerInterface): Response
+    {
+        $data = json_decode($request->getContent(),true);
+        $img="";
+        // $defaultMen="";
+        // $defaultWomen="";
+        $defaultMen="default/father.jpg";
+        $defaultWomen="default/mom.jpg";
+        if(!$data){
+            $data=$request->request->all();
+        }
+        $requestFile=$request->files->all();
+        if ($data["isUpload"]=="true") {
+            $sfile = $requestFile["image"];
+            $img=$this->saveimage($sfile); 
+        }
+        else{
+            if ($data["sex"]=="Masculin") {
+                $img=$defaultMen;
+            } else {
+                $img=$defaultWomen;
+            }
+        }
+        $parents= $parentElevesRepository->findOneBy(['isDeleted'=>false,'id'=>$id]);
 
+        //$parents = new ParentEleves();
+        $parents->setPrenom(trim($data["prenom"]))
+                     ->setNom(trim($data["nom"]))
+                     ->setTelephone(trim($data["telephone"]))
+                     ->setEmail(trim($data["email"]))
+                     ->setAdresse(trim($data["adresse"]))
+                     ->setProfession(trim($data["profession"]))
+                     ->setImage($img)
+                     ->setSex(trim($data["sex"]))
+                     ->setCommentaire(trim($data["commentaire"]))
+                     ->setDeleted(false);
+        $entityManagerInterface->persist($parents);
+        $entityManagerInterface->flush();
+        $data = $serializer->serialize($parents, 'json', [
+            'groups' => ['list']
+        ]);
+        return new Response($data, Response::HTTP_CREATED, [
+            'Content-Type' => 'application/json'
+        ]);
+    }
     public function saveimage($file){
         try {
         $fileName = md5(uniqid()) . '.' . $file->guessExtension();

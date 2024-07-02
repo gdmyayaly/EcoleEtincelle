@@ -17,4 +17,10 @@ export class NiveauEtudeService {
   saveNiveauEtude(data:any):Observable<NiveauEtudeModel>{
     return this.http.post<NiveauEtudeModel>(environment.urlApi+"api/scolarite/niveau-etude",data)
   }
+  loadOneNiveauEtude(id:string):Observable<NiveauEtudeModel>{
+    return this.http.get<NiveauEtudeModel>(environment.urlApi+"api/scolarite/niveau-etude_detail/"+id)
+  }
+  updateOneNiveauEtude(data:any):Observable<NiveauEtudeModel>{
+    return this.http.post<NiveauEtudeModel>(environment.urlApi+"api/scolarite/niveau-etude_update/"+data.id,data)
+  }
 }

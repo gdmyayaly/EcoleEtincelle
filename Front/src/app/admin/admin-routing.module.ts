@@ -8,6 +8,7 @@ import { ParentListComponent } from './pages/parentEleves/parent-list/parent-lis
 import { ParentAddComponent } from './pages/parentEleves/parent-add/parent-add.component';
 import { ScolariteComponent } from './pages/scolarite/scolarite.component';
 import { ElevesDetailComponent } from './pages/eleves/eleves-detail/eleves-detail.component';
+import { NiveauEtudeDetailComponent } from './pages/scolarite/niveauEtude/niveau-etude-detail/niveau-etude-detail.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
       {path: 'parent', component: ParentListComponent},
       {path: 'parent/add', component: ParentAddComponent},
       {path: 'scolarite', component: ScolariteComponent},
+      {path: 'scolarite/niveau-etude/:id', component: NiveauEtudeDetailComponent},
 
     ]
   }

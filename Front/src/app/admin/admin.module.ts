@@ -30,6 +30,7 @@ import { EvaluationFinAnneeComponent } from './pages/eleves/eleves-detail/evalua
 import { PaiementScolariteComponent } from './pages/eleves/eleves-detail/paiement-scolarite/paiement-scolarite.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { ReportEvaluationComponent } from './pages/eleves/eleves-detail/report-evaluation/report-evaluation.component';
+import { AnneeScolaireDetailMoreComponent } from './pages/scolarite/anneeScolaire/annee-scolaire-detail-more/annee-scolaire-detail-more.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ReportEvaluationComponent } from './pages/eleves/eleves-detail/report-e
     FicheEleveComponent,
     EvaluationFinAnneeComponent,
     PaiementScolariteComponent,
-    ReportEvaluationComponent
+    ReportEvaluationComponent,
+    AnneeScolaireDetailMoreComponent
   ],
   
   imports: [

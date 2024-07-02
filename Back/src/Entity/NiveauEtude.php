@@ -31,9 +31,16 @@ class NiveauEtude
     #[ORM\OneToMany(targetEntity: ElevesAnneScolaire::class, mappedBy: 'niveauEtude')]
     private Collection $elevesAnneScolaires;
 
+    /**
+     * @var Collection<int, PaiementNiveauEtudeAnneeScolaire>
+     */
+    #[ORM\OneToMany(targetEntity: PaiementNiveauEtudeAnneeScolaire::class, mappedBy: 'niveauEtude')]
+    private Collection $paiementNiveauEtudeAnneeScolaires;
+
     public function __construct()
     {
         $this->elevesAnneScolaires = new ArrayCollection();
+        $this->paiementNiveauEtudeAnneeScolaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -89,6 +96,36 @@ class NiveauEtude
             // set the owning side to null (unless already changed)
             if ($elevesAnneScolaire->getNiveauEtude() === $this) {
                 $elevesAnneScolaire->setNiveauEtude(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PaiementNiveauEtudeAnneeScolaire>
+     */
+    public function getPaiementNiveauEtudeAnneeScolaires(): Collection
+    {
+        return $this->paiementNiveauEtudeAnneeScolaires;
+    }
+
+    public function addPaiementNiveauEtudeAnneeScolaire(PaiementNiveauEtudeAnneeScolaire $paiementNiveauEtudeAnneeScolaire): static
+    {
+        if (!$this->paiementNiveauEtudeAnneeScolaires->contains($paiementNiveauEtudeAnneeScolaire)) {
+            $this->paiementNiveauEtudeAnneeScolaires->add($paiementNiveauEtudeAnneeScolaire);
+            $paiementNiveauEtudeAnneeScolaire->setNiveauEtude($this);
+        }
+
+        return $this;
+    }
+
+    public function removePaiementNiveauEtudeAnneeScolaire(PaiementNiveauEtudeAnneeScolaire $paiementNiveauEtudeAnneeScolaire): static
+    {
+        if ($this->paiementNiveauEtudeAnneeScolaires->removeElement($paiementNiveauEtudeAnneeScolaire)) {
+            // set the owning side to null (unless already changed)
+            if ($paiementNiveauEtudeAnneeScolaire->getNiveauEtude() === $this) {
+                $paiementNiveauEtudeAnneeScolaire->setNiveauEtude(null);
             }
         }
 

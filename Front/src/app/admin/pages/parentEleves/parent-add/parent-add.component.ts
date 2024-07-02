@@ -49,6 +49,8 @@ export class ParentAddComponent implements OnInit,OnDestroy{
       formData.append("image",this.ImageOneUpload[0], this.ImageOneUpload[0].name);
       isUploadImg="true";
     }
+    console.log(isUploadImg);
+
     formData.append("isUpload",isUploadImg);
     formData.append("prenom",this.formParent.get('prenom')?.value ?? "");
     formData.append("nom",this.formParent.get('nom')?.value ?? "");
