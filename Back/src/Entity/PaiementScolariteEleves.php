@@ -13,24 +13,30 @@ class PaiementScolariteEleves
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['eleves','list'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'paiementScolariteEleves')]
     private ?Eleves $eleves = null;
 
     #[ORM\ManyToOne(inversedBy: 'paiementScolariteEleves')]
+    #[Groups(['eleves','list'])]
     private ?PaiementNiveauEtudeAnneeScolaire $scolaritePaiement = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['eleves','list'])]
     private ?string $montantPaier = null;
 
     #[ORM\Column]
+    #[Groups(['eleves','list'])]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['eleves','list'])]
     private ?string $commentaire = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['eleves','list'])]
     private ?string $htmlFacture = null;
 
     public function getId(): ?int

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ElevesModel } from '../model/elevesmodel';
 import { OneEvaluationElevesModel } from '../model/oneEvaluation';
+import { ElevesPaiementModel } from '../model/elevespaiement';
 
 @Injectable({
   providedIn: 'root'
@@ -27,4 +28,11 @@ export class ElevesService {
   detailOneEvaluationFromDateId(id:any):Observable<OneEvaluationElevesModel>{
     return this.http.get<OneEvaluationElevesModel>(environment.urlApi+"api/eleves/one-evaluation/"+id)
   }
+  
+  detailPaiementEleves(anneeScolaire:any,eleve:any):Observable<ElevesPaiementModel>{
+    return this.http.get<ElevesPaiementModel>(environment.urlApi+"api/gestion_paiement/verificationpaiement/"+anneeScolaire+"/"+eleve)
+   }
+   submitPaiement(data:any):Observable<any>{
+    return this.http.post<any>(environment.urlApi+"api/gestion_paiement/submitpaiementeleves",data)
+   }
 }

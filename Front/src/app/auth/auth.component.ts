@@ -13,7 +13,7 @@ export class AuthComponent implements OnInit, OnDestroy{
     password: new FormControl('',Validators.required)
   });
   public reponse:any;
-
+  public errorConnection:boolean=false;
   constructor(private authService:AuthService){}
   ngOnInit(): void {
     localStorage.clear();
@@ -33,6 +33,7 @@ export class AuthComponent implements OnInit, OnDestroy{
       },
       error=>{
         console.log(error);
+        this.errorConnection=true;
       }
     )
   }
