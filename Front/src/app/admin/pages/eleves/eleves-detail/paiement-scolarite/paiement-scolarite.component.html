@@ -116,7 +116,11 @@
                 [niveauEtude]="eleve.elevesAnneScolaires[0].niveauEtude.nom"
                 [anneeScolaire]="eleve.elevesAnneScolaires[0].anneeScolaire.anneeStart+' '+eleve.elevesAnneScolaires[0].anneeScolaire.anneeEnd"
                 ></app-facture>
-    </div>
+        <button (click)="cancelModal()" class=" ml-3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                    Fermer
+        </button>
+            </div>
+  
     <!-- @Input() eleve!:ElevesModel;
     @Input() montant:string="";
     @Input() moi:string="";

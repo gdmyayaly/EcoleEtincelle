@@ -72,10 +72,22 @@ export class PaiementScolariteComponent implements OnInit,OnDestroy{
   }
   savePaiement(){
     console.log(this.formAddPaiement.value);
+    let idAnnee=this.formAddPaiement.get('anneeScolaire')?.value;
+    console.log(idAnnee);
+    
     this.elevesService.submitPaiement(this.formAddPaiement.value).subscribe(
       res=>{
         console.log(res);
         this.cancelModal();
+        this.elevesService.detailPaiementEleves(idAnnee,this.eleve.id).subscribe(
+          resP=>{
+            console.log(resP);
+            this.detailPaiement=resP;
+          },
+          errors=>{console.log(errors);
+          }
+        )
+
       },
       error=>{console.log(error);
       }
