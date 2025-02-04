@@ -20,6 +20,7 @@ export class AnneeScolaireDetailMoreComponent implements OnInit,OnDestroy{
     anneeScolaire: new FormControl('',Validators.required),
     niveauEtude: new FormControl('',Validators.required),
   });
+  FixTerm:string="";
   public detailMensualiteNiveauEtudeSelected:DetailMensualiteNiveauEtudeModel[]=[];
 
   
@@ -53,6 +54,7 @@ export class AnneeScolaireDetailMoreComponent implements OnInit,OnDestroy{
   }
   paiementNiveauEtude(item:NiveauEtudeModel){
     console.log(item);
+    this.FixTerm="";
     this.niveauEtudeSelected=item;
     this.anneeScolaireService.verificationPaiementScolarite(item.id).subscribe(
       res=>{
@@ -93,5 +95,19 @@ export class AnneeScolaireDetailMoreComponent implements OnInit,OnDestroy{
         console.log(error);
       }
     )
+  }
+  FixMensualite(): void {
+    // this.FixTerm
+    for (let index = 0; index < this.anneeScolaire.anneeScolaireMensualites.length; index++) {
+      this.formPaiement.get('paiement'+this.anneeScolaire.anneeScolaireMensualites[index].id)?.setValue(this.FixTerm);
+      // this.formPaiement.addControl('paiement'+this.anneeScolaire.anneeScolaireMensualites[index].id,new FormControl('',Validators.required))      
+    }
+  }
+  onSearchChange(event: any) {
+    this.FixTerm=event.target.value;
+    for (let index = 0; index < this.anneeScolaire.anneeScolaireMensualites.length; index++) {
+      this.formPaiement.get('paiement'+this.anneeScolaire.anneeScolaireMensualites[index].id)?.setValue(this.FixTerm);
+      // this.formPaiement.addControl('paiement'+this.anneeScolaire.anneeScolaireMensualites[index].id,new FormControl('',Validators.required))      
+    }
   }
 }

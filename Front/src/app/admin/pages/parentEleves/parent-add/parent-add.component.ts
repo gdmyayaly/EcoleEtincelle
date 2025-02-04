@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ParentElevesService } from '../service/parent-eleves.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-parent-add',
@@ -23,9 +23,18 @@ export class ParentAddComponent implements OnInit,OnDestroy{
     commentaire: new FormControl(''),
 
   });
-  constructor(private parentService:ParentElevesService,private router:Router){}
+  parentId: number | null = null;
+
+  constructor(private parentService:ParentElevesService,private router:Router,private route: ActivatedRoute){}
   ngOnInit(): void {
     this.imgUpload=this.defaultImg;
+    this.parentId = this.route.snapshot.params['id'];
+    if (this.parentId) {
+      this.parentService.getById(this.parentId).subscribe(parent => {
+        this.formParent.patchValue(parent);
+        // this.defaultImg = parent.image;
+      });
+    }
   }
   ngOnDestroy(): void {
     
@@ -60,17 +69,27 @@ export class ParentAddComponent implements OnInit,OnDestroy{
     formData.append("profession",this.formParent.get('profession')?.value ?? "");
     formData.append("sex",this.formParent.get('sex')?.value ?? "");
     formData.append("commentaire",this.formParent.get('commentaire')?.value ?? "");
-    this.parentService.saveParentEleves(formData).subscribe(
-      res=>{
-        console.log("Perfec");
-        console.log(res);
-        this.router.navigateByUrl("/admin/parent")
-      },
-      error=>{
-        console.log("Error");
-        console.log(error);
+    if (this.parentId) {
+      this.parentService.update(formData,this.parentId).subscribe(() => {
+        this.router.navigateByUrl("/admin/parent");
+      });
+    }
+    else{
+     this.parentService.saveParentEleves(formData).subscribe(() => {
+          this.router.navigateByUrl("/admin/parent");
+        });
+    }
+    // this.parentService.saveParentEleves(formData).subscribe(
+    //   res=>{
+    //     console.log("Perfec");
+    //     console.log(res);
+    //     this.router.navigateByUrl("/admin/parent")
+    //   },
+    //   error=>{
+    //     console.log("Error");
+    //     console.log(error);
         
-      }
-    )
+    //   }
+    // )
   }
 }

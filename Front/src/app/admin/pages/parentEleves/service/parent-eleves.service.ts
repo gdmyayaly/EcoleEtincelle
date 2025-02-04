@@ -17,4 +17,10 @@ export class ParentElevesService {
   listParentEleves():Observable<ParentElevesModel[]>{
     return this.http.get<ParentElevesModel[]>(environment.urlApi+"api/parent_eleves")
   }
+  getById(id:number):Observable<ParentElevesModel>{
+    return this.http.get<ParentElevesModel>(environment.urlApi+"api/parent_eleves_detail/"+id)
+  }
+  update(data:any,id:number):Observable<ParentElevesModel>{
+    return this.http.post<ParentElevesModel>(environment.urlApi+"api/parent_eleves_update/"+id , data )
+  }
 }

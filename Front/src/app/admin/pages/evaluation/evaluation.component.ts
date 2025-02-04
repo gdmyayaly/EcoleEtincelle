@@ -1,16 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-scolarite',
-  templateUrl: './scolarite.component.html',
-  styleUrls: ['./scolarite.component.css']
+  selector: 'app-evaluation',
+  templateUrl: './evaluation.component.html',
+  styleUrls: ['./evaluation.component.css']
 })
-export class ScolariteComponent implements OnInit,OnDestroy{
+export class EvaluationComponent {
   public tabsNavigation:{name:string,isActive:boolean,componennt:string}[]=[
-    {name:"Année Scolaire",componennt:"app-annee-scolaire-list",isActive:true},
-    {name:"Niveau d'étude",componennt:"app-niveau-etude-list",isActive:false},
+    {name:"Critères d'évaluation",componennt:"app-critere",isActive:true},
+    {name:"Session d'évaluation",componennt:"app-session",isActive:false},
   ]
-  public activeView:string="app-annee-scolaire-list";
+  public activeView:string="app-critere";
   constructor(){}
 
   ngOnInit(): void {

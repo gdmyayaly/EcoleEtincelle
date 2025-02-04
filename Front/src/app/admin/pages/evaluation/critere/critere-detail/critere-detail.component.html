@@ -1,0 +1,112 @@
+<!-- <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-x-2 gap-y-28 lg:gap-y-16"> -->
+<div class="my-5">
+    <a routerLink="/admin/evaluation/critere" type='button'  class='py-2.5 px-6 text-sm rounded-lg bg-gray-700 text-white cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-gray-900'>
+      <i class='bx bx-arrow-back' ></i>Retour 
+    </a>
+</div>
+<div class="row">
+    <div class="col-12 col-md-6">
+          <div class="box">
+            <form [formGroup]="formAddCritere">
+              <div class="">
+                <label for="question" class="after:content-['*'] after:ml-0.5 after:text-red-500 block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Question</label>
+                <textarea formControlName="question" id="question" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Note sur cette critère..."></textarea>
+              </div>
+              <div class="">
+                <label for="faitSeul" class="after:content-['*'] after:ml-0.5 after:text-red-500 block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Fait seul</label>
+                <textarea formControlName="faitSeul" id="faitSeul" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Note sur cette critère..."></textarea>
+              </div>
+              <div class="">
+                <label for="faitAvecDeLAide" class="after:content-['*'] after:ml-0.5 after:text-red-500 block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Fait avec de L'aide</label>
+                <textarea formControlName="faitAvecDeLAide" id="faitAvecDeLAide" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Note sur cette critère..."></textarea>
+              </div>
+              <div class="">
+                <label for="neFaitPas" class="after:content-['*'] after:ml-0.5 after:text-red-500 block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Ne fait pas</label>
+                <textarea formControlName="neFaitPas" id="neFaitPas" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Note sur cette critère..."></textarea>
+              </div>
+
+              <div class="">
+                <label for="nonEvaluer" class="block mt-4 mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Non Evaluer</label>
+                <textarea formControlName="nonEvaluer" id="nonEvaluer" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Note sur cette critère..."></textarea>
+              </div>
+              <button
+                  type="button"
+                  *ngIf="!showBtnUpdateForm"
+                  [disabled]="!formAddCritere.valid"
+                  class="w-full mt-2 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                  (click)="saveData()"
+                >
+                  Valider
+                </button>
+                <button
+                type="button"
+                *ngIf="showBtnUpdateForm"
+                [disabled]="!formAddCritere.valid"
+                class="w-full mt-2 inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:ml-3 sm:w-auto sm:text-sm"
+                (click)="updateFrom()"
+              >
+                Modifier
+              </button>
+              <button 
+                      *ngIf="showBtnUpdateForm"
+                      (click)="cancelModifData()"
+                      type="button" class="ml-3 text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                Annuler
+              </button>
+            </form>
+          </div>
+    </div>
+    <div class="col-12 col-md-6" *ngIf="detailCritereEvaluation.critereQuestions.length>=1">
+        <div *ngFor="let critere of detailCritereEvaluation.critereQuestions">
+            <details>
+                <summary>{{critere.question}}</summary>
+                <div class="content">
+                  <button (click)="onChangeSelectedCritere(critere.id)" type="button" class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                    Modifier
+                  </button>
+
+                  <ul class="my-4 space-y-3">
+                    <li >
+                      <span
+                        class="flex items-center flex-wrap p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                        <span class="flex-1 ms-3">Fait seul</span>
+                      </span>
+                    </li>
+                  </ul>
+                  <p>{{critere.faitSeul}}</p>
+                  
+                  <ul class="my-4 space-y-3">
+                    <li >
+                      <span
+                        class="flex items-center flex-wrap p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                        <span class="flex-1 ms-3">Ne fait pas</span>
+                      </span>
+                    </li>
+                  </ul>
+                  <p>{{critere.neFaitPas}}</p>
+                  
+                  <ul class="my-4 space-y-3">
+                    <li >
+                      <span
+                        class="flex items-center flex-wrap p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                        <span class="flex-1 ms-3">Fait avec de l'aide</span>
+                      </span>
+                    </li>
+                  </ul>
+                  <p>{{critere.faitAvecDeLAide}}</p>
+                  
+                  <ul class="my-4 space-y-3">
+                    <li >
+                      <span
+                        class="flex items-center flex-wrap p-3 text-base font-bold text-gray-900 rounded-lg bg-gray-50 hover:bg-gray-100 group hover:shadow dark:bg-gray-600 dark:hover:bg-gray-500 dark:text-white">
+                        <span class="flex-1 ms-3">Non evaluer</span>
+                      </span>
+                    </li>
+                  </ul>
+                  <p>{{critere.nonEvaluer}}</p>
+                  
+                </div>
+            </details>
+        </div>
+    </div>
+</div>

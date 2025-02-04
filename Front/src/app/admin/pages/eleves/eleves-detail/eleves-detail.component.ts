@@ -14,7 +14,6 @@ export class ElevesDetailComponent implements OnInit,OnDestroy{
   public tabsNavigation:{name:string,isActive:boolean,componennt:string}[]=[
     {name:"Fiche",componennt:"app-fiche-eleve",isActive:true},
     {name:"Paiement",componennt:"app-paiement-scolarite",isActive:false},
-    {name:"Évaluation fin d'année",componennt:"app-evaluation-fin-annee",isActive:false},
     {name:"Rapport Fin d'année",componennt:"app-report-evaluation",isActive:false},
 
   ]

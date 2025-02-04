@@ -11,6 +11,8 @@ import { ParentElevesModel } from '../model/parentEleves';
 export class ParentListComponent implements OnInit,OnDestroy{
   public urlAssets:string="";
   public listParentEleves:ParentElevesModel[]=[];
+  public searchTerm: string = '';
+
   constructor(private parentService:ParentElevesService){}
 
   ngOnInit(): void {
@@ -23,14 +25,21 @@ export class ParentListComponent implements OnInit,OnDestroy{
   loadListParent(){
     this.parentService.listParentEleves().subscribe(
       res=>{
-        console.log("Perfect");
-        console.log(res);
         this.listParentEleves=res;
       },
       error=>{
-        console.log("Error");
         console.error(error);
       }
     )
+  }
+  search(): void {
+    if (this.searchTerm) {
+      this.listParentEleves = this.listParentEleves.filter(parent =>
+        parent.nom.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        parent.prenom.toLowerCase().includes(this.searchTerm.toLowerCase())
+      );
+    } else {
+      this.loadListParent();
+    }
   }
 }

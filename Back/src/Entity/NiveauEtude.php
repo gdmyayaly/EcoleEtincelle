@@ -14,15 +14,15 @@ class NiveauEtude
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['list','eleves'])]
+    #[Groups(['list','eleves','niveau:read', 'session:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['list','eleves'])]
+    #[Groups(['list','eleves','niveau:read', 'session:read'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['list','eleves'])]
+    #[Groups(['list','eleves','niveau:read', 'session:read'])]
     private ?string $commentaire = null;
 
     /**
@@ -37,10 +37,18 @@ class NiveauEtude
     #[ORM\OneToMany(targetEntity: PaiementNiveauEtudeAnneeScolaire::class, mappedBy: 'niveauEtude')]
     private Collection $paiementNiveauEtudeAnneeScolaires;
 
+    /**
+     * @var Collection<int, SessionsNiveaux>
+     */
+    #[ORM\OneToMany(targetEntity: SessionsNiveaux::class, mappedBy: 'niveauEtude')]
+    #[Groups(['niveau:read'])]
+    private Collection $sessionsNiveauxes;
+
     public function __construct()
     {
         $this->elevesAnneScolaires = new ArrayCollection();
         $this->paiementNiveauEtudeAnneeScolaires = new ArrayCollection();
+        $this->sessionsNiveauxes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,6 +134,36 @@ class NiveauEtude
             // set the owning side to null (unless already changed)
             if ($paiementNiveauEtudeAnneeScolaire->getNiveauEtude() === $this) {
                 $paiementNiveauEtudeAnneeScolaire->setNiveauEtude(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SessionsNiveaux>
+     */
+    public function getSessionsNiveauxes(): Collection
+    {
+        return $this->sessionsNiveauxes;
+    }
+
+    public function addSessionsNiveaux(SessionsNiveaux $sessionsNiveaux): static
+    {
+        if (!$this->sessionsNiveauxes->contains($sessionsNiveaux)) {
+            $this->sessionsNiveauxes->add($sessionsNiveaux);
+            $sessionsNiveaux->setNiveauEtude($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSessionsNiveaux(SessionsNiveaux $sessionsNiveaux): static
+    {
+        if ($this->sessionsNiveauxes->removeElement($sessionsNiveaux)) {
+            // set the owning side to null (unless already changed)
+            if ($sessionsNiveaux->getNiveauEtude() === $this) {
+                $sessionsNiveaux->setNiveauEtude(null);
             }
         }
 

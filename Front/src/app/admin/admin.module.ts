@@ -21,17 +21,19 @@ import { NiveauEtudeDetailComponent } from './pages/scolarite/niveauEtude/niveau
 import { AnneeScolaireAddComponent } from './pages/scolarite/anneeScolaire/annee-scolaire-add/annee-scolaire-add.component';
 import { AnneeScolaireListComponent } from './pages/scolarite/anneeScolaire/annee-scolaire-list/annee-scolaire-list.component';
 import { AnneeScolaireDetailComponent } from './pages/scolarite/anneeScolaire/annee-scolaire-detail/annee-scolaire-detail.component';
-import { EvaluationFinalListComponent } from './pages/scolarite/EvaluationFinal/evaluation-final-list/evaluation-final-list.component';
-import { EvaluationFinalAddComponent } from './pages/scolarite/EvaluationFinal/evaluation-final-add/evaluation-final-add.component';
-import { EvaluationFinalDetailComponent } from './pages/scolarite/EvaluationFinal/evaluation-final-detail/evaluation-final-detail.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { FicheEleveComponent } from './pages/eleves/eleves-detail/fiche-eleve/fiche-eleve.component';
-import { EvaluationFinAnneeComponent } from './pages/eleves/eleves-detail/evaluation-fin-annee/evaluation-fin-annee.component';
 import { PaiementScolariteComponent } from './pages/eleves/eleves-detail/paiement-scolarite/paiement-scolarite.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { ReportEvaluationComponent } from './pages/eleves/eleves-detail/report-evaluation/report-evaluation.component';
 import { AnneeScolaireDetailMoreComponent } from './pages/scolarite/anneeScolaire/annee-scolaire-detail-more/annee-scolaire-detail-more.component';
 import { FactureComponent } from './pages/eleves/eleves-detail/facture/facture.component';
+import { EvaluationComponent } from './pages/evaluation/evaluation.component';
+import { CritereComponent } from './pages/evaluation/critere/critere.component';
+import { SessionComponent } from './pages/evaluation/session/session.component';
+import { SessionDetailComponent } from './pages/evaluation/session/session-detail/session-detail.component';
+import { CritereDetailComponent } from './pages/evaluation/critere/critere-detail/critere-detail.component';
+
 
 @NgModule({
   declarations: [
@@ -53,15 +55,16 @@ import { FactureComponent } from './pages/eleves/eleves-detail/facture/facture.c
     AnneeScolaireAddComponent,
     AnneeScolaireListComponent,
     AnneeScolaireDetailComponent,
-    EvaluationFinalListComponent,
-    EvaluationFinalAddComponent,
-    EvaluationFinalDetailComponent,
     FicheEleveComponent,
-    EvaluationFinAnneeComponent,
     PaiementScolariteComponent,
     ReportEvaluationComponent,
     AnneeScolaireDetailMoreComponent,
-    FactureComponent
+    FactureComponent,
+    EvaluationComponent,
+    CritereComponent,
+    SessionComponent,
+    CritereDetailComponent,
+    SessionDetailComponent
   ],
   
   imports: [

@@ -23,8 +23,15 @@
                         <select formControlName="niveauEtude" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                           <option *ngIf="niveauEtudeSelected" selected value="{{niveauEtudeSelected.id}}">{{niveauEtudeSelected.nom}}</option>
                           <option *ngIf="!niveauEtudeSelected" selected >Pas de niveau Etude choisit</option>
-
                         </select>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label for="Fix" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                                Mensualité Fix
+                            </label>
+                            <input type="text" (input)="onSearchChange($event)" id="Fix" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  />
+                        </div>
                     </div>
                     <div class="col-12 col-md-6" *ngFor="let item of anneeScolaire.anneeScolaireMensualites">
                         <div>

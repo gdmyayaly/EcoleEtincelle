@@ -1,0 +1,101 @@
+<div class="container mx-auto p-6">
+    <h1 class="flex-auto text-xl font-semibold text-slate-900" >Session d'évaluation.</h1>
+    <div class="row">
+        <div class="col-12 col-md-4 col-lg-4">
+            <form [formGroup]="sessionForm" (ngSubmit)="onSubmit()" class="mb-8 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                <div class="mb-4">
+                  <label class="block text-gray-700 text-sm font-bold mb-2">Nom: <span class="text-red-600">*</span> </label>
+                  <input formControlName="nom" type="text"
+                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                
+                <div class="mb-4">
+                  <label class="block text-gray-700 text-sm font-bold mb-2">Date limite: <span class="text-red-600">*</span> </label>
+                  <input formControlName="dateLimit" type="date"
+                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                
+                <div class="mb-4">
+                  <label class="flex items-center space-x-2">
+                    <input formControlName="isActive" type="checkbox"
+                           class="form-checkbox h-4 w-4 text-blue-600">
+                    <span class="text-gray-700 text-sm font-bold">Activer</span>
+                  </label>
+                </div>
+                
+                <div formArrayName="niveauxEtudes" class="mb-6">
+                  <label class="block text-gray-700 text-sm font-bold mb-2">Niveaux d'études: <span class="text-red-600">*</span> </label>
+                  <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div *ngFor="let niveau of niveaux" class="flex items-center">
+                      <label class="flex items-center space-x-2">
+                        <input type="checkbox" 
+                               [checked]="isNiveauSelected(niveau.id)"
+                               (change)="onNiveauChange(niveau.id, $event)"
+                               class="form-checkbox h-4 w-4 text-blue-600">
+                        <span class="text-gray-700">{{niveau.nom}}</span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                  <button type="submit" 
+                          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    {{editingSession ? 'Modifier' : 'Créer'}}
+                  </button>
+                  <button type="button" 
+                          (click)="resetForm()"
+                          class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Annuler
+                  </button>
+                </div>
+              </form>
+        </div>
+        <div class="col-12 col-md-8 col-lg-8">
+            <div class="overflow-x-auto bg-white shadow-md rounded">
+                <table class="min-w-full table-auto">
+                  <thead class="bg-gray-100">
+                    <tr>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date limite</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Active</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Niveaux</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody class="bg-white divide-y divide-gray-200">
+                    <tr *ngFor="let session of sessions" class="hover:bg-gray-50">
+                      <td class="px-6 py-4 whitespace-nowrap">{{session.nom}}</td>
+                      <td class="px-6 py-4 whitespace-nowrap">{{session.dateLimit | date: 'dd/MM/yyyy'}}</td>
+                      <td class="px-6 py-4 whitespace-nowrap">
+                        <span [ngClass]="session.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'" 
+                              class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full">
+                          {{session.isActive ? 'Oui' : 'Non'}}
+                        </span>
+                      </td>
+                      <td class="px-6 py-4">
+                        <span *ngFor="let niveau of session.sessionsNiveauxes; let last = last" 
+                              class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 mr-2">
+                          {{niveau.niveauEtude.nom}}
+                        </span>
+                      </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                        <button (click)="editSession(session)" 
+                                class="text-indigo-600 hover:text-indigo-900 mr-4">
+                          Éditer
+                        </button>
+                        <button (click)="deleteSession(session.id!)" 
+                                class="text-red-600 hover:text-red-900">
+                          Supprimer
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+        </div>
+
+    </div>
+
+
+</div>

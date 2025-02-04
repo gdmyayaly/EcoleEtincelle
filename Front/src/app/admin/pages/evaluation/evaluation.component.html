@@ -1,9 +1,4 @@
-<h1 class="flex-auto text-lg font-semibold text-slate-900" *ngIf="onEleves">{{onEleves.prenom}} {{onEleves.nom}}</h1>
-<button type='button'  class='my-2 py-2.5 px-6 text-sm rounded-lg bg-gray-700 text-white cursor-pointer font-semibold text-center shadow-xs transition-all duration-500 hover:bg-gray-900'>
-    <a routerLink="/admin/eleves" >
-        <i class='bx bx-arrow-back' ></i>Retour 
-    </a>
-</button>
+
 
 <div class="sm:hidden">
     <label for="tabs" class="sr-only">Select your navigation</label>
@@ -21,13 +16,9 @@
             {{item.name}}
         </span>
     </li>
-    
 </ul>
 
 <div class="mt-4">
-    <app-fiche-eleve [eleve]="onEleves" *ngIf="activeView=='app-fiche-eleve'"></app-fiche-eleve>
-    <app-paiement-scolarite [eleve]="onEleves" *ngIf="activeView=='app-paiement-scolarite'"></app-paiement-scolarite>
-    <app-report-evaluation [eleve]="onEleves" *ngIf="activeView=='app-report-evaluation'"></app-report-evaluation>
-
-    
+    <app-critere *ngIf="activeView=='app-critere'"></app-critere>
+    <app-session *ngIf="activeView=='app-session'"></app-session>
 </div>

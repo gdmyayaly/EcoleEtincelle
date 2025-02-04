@@ -47,11 +47,6 @@ class AnneeScolaire
     #[Groups(['list'])]
     private Collection $elevesAnneScolaires;
 
-    /**
-     * @var Collection<int, EvaluationAnnuelEleves>
-     */
-    #[ORM\OneToMany(targetEntity: EvaluationAnnuelEleves::class, mappedBy: 'anneeScolaire')]
-    private Collection $evaluationAnnuelEleves;
 
     /**
      * @var Collection<int, PaiementNiveauEtudeAnneeScolaire>
@@ -63,7 +58,6 @@ class AnneeScolaire
     {
         $this->anneeScolaireMensualites = new ArrayCollection();
         $this->elevesAnneScolaires = new ArrayCollection();
-        $this->evaluationAnnuelEleves = new ArrayCollection();
         $this->paiementNiveauEtudeAnneeScolaires = new ArrayCollection();
     }
 
@@ -180,35 +174,6 @@ class AnneeScolaire
         return $this;
     }
 
-    /**
-     * @return Collection<int, EvaluationAnnuelEleves>
-     */
-    public function getEvaluationAnnuelEleves(): Collection
-    {
-        return $this->evaluationAnnuelEleves;
-    }
-
-    public function addEvaluationAnnuelElefe(EvaluationAnnuelEleves $evaluationAnnuelElefe): static
-    {
-        if (!$this->evaluationAnnuelEleves->contains($evaluationAnnuelElefe)) {
-            $this->evaluationAnnuelEleves->add($evaluationAnnuelElefe);
-            $evaluationAnnuelElefe->setAnneeScolaire($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvaluationAnnuelElefe(EvaluationAnnuelEleves $evaluationAnnuelElefe): static
-    {
-        if ($this->evaluationAnnuelEleves->removeElement($evaluationAnnuelElefe)) {
-            // set the owning side to null (unless already changed)
-            if ($evaluationAnnuelElefe->getAnneeScolaire() === $this) {
-                $evaluationAnnuelElefe->setAnneeScolaire(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, PaiementNiveauEtudeAnneeScolaire>

@@ -63,11 +63,6 @@ class Eleves
     #[Groups(['eleves'])]
     private Collection $elevesAnneScolaires;
 
-    /**
-     * @var Collection<int, EvaluationAnnuelEleves>
-     */
-    #[ORM\OneToMany(targetEntity: EvaluationAnnuelEleves::class, mappedBy: 'eleve')]
-    private Collection $evaluationAnnuelEleves;
 
     /**
      * @var Collection<int, PaiementScolariteEleves>
@@ -82,7 +77,6 @@ class Eleves
     {
         $this->parentsElevesLinks = new ArrayCollection();
         $this->elevesAnneScolaires = new ArrayCollection();
-        $this->evaluationAnnuelEleves = new ArrayCollection();
         $this->paiementScolariteEleves = new ArrayCollection();
         $this->createdAt= new DateTimeImmutable('now');
     }
@@ -242,36 +236,6 @@ class Eleves
             // set the owning side to null (unless already changed)
             if ($elevesAnneScolaire->getEleves() === $this) {
                 $elevesAnneScolaire->setEleves(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, EvaluationAnnuelEleves>
-     */
-    public function getEvaluationAnnuelEleves(): Collection
-    {
-        return $this->evaluationAnnuelEleves;
-    }
-
-    public function addEvaluationAnnuelElefe(EvaluationAnnuelEleves $evaluationAnnuelElefe): static
-    {
-        if (!$this->evaluationAnnuelEleves->contains($evaluationAnnuelElefe)) {
-            $this->evaluationAnnuelEleves->add($evaluationAnnuelElefe);
-            $evaluationAnnuelElefe->setEleve($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvaluationAnnuelElefe(EvaluationAnnuelEleves $evaluationAnnuelElefe): static
-    {
-        if ($this->evaluationAnnuelEleves->removeElement($evaluationAnnuelElefe)) {
-            // set the owning side to null (unless already changed)
-            if ($evaluationAnnuelElefe->getEleve() === $this) {
-                $evaluationAnnuelElefe->setEleve(null);
             }
         }
 
